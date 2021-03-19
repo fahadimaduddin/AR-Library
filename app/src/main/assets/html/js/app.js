@@ -7,28 +7,28 @@ var World = {
 		this.createOverlays();
 	},
 
-	createCollectionDrawable: function createCollectionDrawableFn(lighthouse) {
+	createCollectionDrawable: function createCollectionDrawableFn(shelf) {
 
 		var collcont,arrow,directions,distance,dirdisplay,bookdisplay,bookcont,header,colldisplay;
 
-		var collection = metadata.books.filter(function (entry) {return entry.physicalLocation.lighthouseTarget === lighthouse});
+		var collection = metadata.books.filter(function (entry) {return entry.physicalLocation.ShelfTarget === shelf});
 		var booktobefound = metadata.books.filter(function (entry) {return entry.id ===World.bookToFind});
 
 		//If user has arrived at the location where the book is, show shelf location reminder
-		if (World.bookToFind!="" && booktobefound[0].physicalLocation.lighthouseTarget === lighthouse){
+		if (World.bookToFind!="" && booktobefound[0].physicalLocation.ShelfTarget === shelf){
 			collcont=collection[0].physicalLocation.shortDesc;
 			header="The "+collection[0].physicalLocation.name;
 			colldisplay ='display:flex;';
 			dirdisplay='display:none;';
 			bookdisplay='display:flex;';
-			bookcont = '<div>The book you are looking for book is located at<br><b>'+booktobefound[0].callCode+'</b></div></div><img style="height:100%" src="'+booktobefound[0].coverImg+'"></div>';
+			bookcont = '<div>The book you are looking for book is located at<br><b>'+booktobefound[0].bookCode+'</b></div></div><img style="height:100%" src="'+booktobefound[0].coverImg+'"></div>';
 			directions = '';
 			distance = '';
 			arrow='';
 
 		}
 		//User is looking for book, but is not on location, show directions to location
-		else if (World.bookToFind!="" && booktobefound[0].physicalLocation.lighthouseTarget != lighthouse){
+		else if (World.bookToFind!="" && booktobefound[0].physicalLocation.ShelfTarget != shelf){
 
 			for (var i=0; i<metadata.directions.length; i++){
 				if (collection[0].physicalLocation.name==metadata.directions[i].from){
@@ -235,15 +235,15 @@ var World = {
 			},
 			onImageRecognized: function(target) {
 
-				//Scans a lighthouse
-				if (target.name.slice(0, -1)=="lighthouse") {
+				//Scans a shelf
+				if (target.name.slice(0, -1)=="shelf") {
 
 					this.addImageTargetCamDrawables(target, World.createCollectionDrawable(target.name));
 				}
 
 				//Scans a book
 				else {
-					//User has selected a related book to be located on lighthouse, don't interact with books
+					//User has selected a related book to be located on shelf, don't interact with books
 					if (World.bookToFind==="") {
 
 						World.bookId = target.name.slice(0, -1);
@@ -300,7 +300,7 @@ var World = {
 
 						imgs.push(metadata.books[ii].coverImg);
 
-						$("#otherBooks").find(".subcontent").append('<div id="'+metadata.books[ii].id+'" class="newbook"><img src="'+metadata.books[ii].coverImg+'">Available at<br>'+metadata.books[ii].physicalLocation.name+' '+metadata.books[ii].callCode)+'</div>';
+						$("#otherBooks").find(".subcontent").append('<div id="'+metadata.books[ii].id+'" class="newbook"><img src="'+metadata.books[ii].coverImg+'">Available at<br>'+metadata.books[ii].physicalLocation.name+' '+metadata.books[ii].bookCode)+'</div>';
 					}
 				}
 			}
@@ -313,7 +313,7 @@ var World = {
 
 				if (origBook[0].creator===metadata.books[ii].creator && metadata.books[ii].id!=World.bookId){
 
-					$("#otherBooks").find(".subcontent").append('<div id="'+metadata.books[ii].id+'" class="newbook"><img src="'+metadata.books[ii].coverImg+'">Available at<br>'+metadata.books[ii].physicalLocation.name+' '+metadata.books[ii].callCode)+'</div>';
+					$("#otherBooks").find(".subcontent").append('<div id="'+metadata.books[ii].id+'" class="newbook"><img src="'+metadata.books[ii].coverImg+'">Available at<br>'+metadata.books[ii].physicalLocation.name+' '+metadata.books[ii].bookCode)+'</div>';
 				}
 			}
 		}
@@ -321,7 +321,7 @@ var World = {
 		$(".newbook").on("click",function(){
 			World.bookToFind = $(this).attr("id");
 			$("#otherBooks").hide();
-			$("#findARlighthouse").show().find(".subcontent").html('<img src="'+origBook[0].thumbLighthouse+'"><img src="'+$(this).find("img").attr("src")+'">');
+			$("#findARlighthouse").show().find(".subcontent").html('<img src="'+origBook[0].shelfImage+'"><img src="'+$(this).find("img").attr("src")+'">');
 		});
 
 		$(".subfooter").on("click",function(){
@@ -337,7 +337,7 @@ var World = {
 
 $(document).ready(function() {
 	//Get collection metadata from server, replace this with your own
-	$.getJSON("https://jsonkeeper.com/b/LM0X", function(data) {
+	$.getJSON("https://jsonkeeper.com/b/5AC4", function(data) {
 
 		metadata = data;
 
