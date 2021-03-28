@@ -12,7 +12,7 @@ var World = {
 		var collcont,arrow,directions,distance,dirdisplay,bookdisplay,bookcont,header,colldisplay;
 
 		var collection = metadata.books.filter(function (entry) {return entry.physicalLocation.ShelfTarget === shelf});
-		var booktobefound = metadata.books.filter(function (entry) {return entry.id ===World.bookToFind});
+		var booktobefound = metadata.books.filter(function (entry) {return entry.id === World.bookToFind});
 
 		//If user has arrived at the location where the book is, show shelf location reminder
 		if (World.bookToFind!="" && booktobefound[0].physicalLocation.ShelfTarget === shelf){
@@ -241,6 +241,7 @@ var World = {
 					this.addImageTargetCamDrawables(target, World.createCollectionDrawable(target.name));
 				}
 
+
 				//Scans a book
 				else {
 					//User has selected a related book to be located on shelf, don't interact with books
@@ -249,7 +250,7 @@ var World = {
 						World.bookId = target.name.slice(0, -1);
 
 						book = metadata.books.filter(function (entry) {return entry.id === World.bookId});
-
+//                        console.log(id);
 						if (book[0].videoUrl!="") this.addImageTargetCamDrawables(target, videoButtons[World.bookId]);
 						if (book[0].shortDesc!="") this.addImageTargetCamDrawables(target, shortDescriptions[World.bookId]);
 						if (book[0].wikipediaUrl!="") this.addImageTargetCamDrawables(target, wikiButtons[World.bookId]);
@@ -286,7 +287,9 @@ var World = {
 		var imgs = [];
 		var wayfinderimg;
 
-		var origBook = metadata.books.filter(function (entry) {return entry.id === World.bookId});
+		var origBook = metadata.books.filter(function (entry) {
+		return entry.id === World.bookId
+		});
 
 		if (type=="related") {
 
@@ -337,7 +340,7 @@ var World = {
 
 $(document).ready(function() {
 	//Get collection metadata from server, replace this with your own
-	$.getJSON("https://jsonkeeper.com/b/5AC4", function(data) {
+	$.getJSON("https://jsonkeeper.com/b/2A7P", function(data) {
 
 		metadata = data;
 
