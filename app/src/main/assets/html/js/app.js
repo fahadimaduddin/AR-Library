@@ -339,7 +339,7 @@ var World = {
 
 $(document).ready(function() {
 	//Get collection metadata from server, replace this with your own
-	$.getJSON("https://jsonkeeper.com/b/AM50", function(data) {
+	$.getJSON("https://jsonkeeper.com/b/URGT", function(data) {
 
 		metadata = data;
 
