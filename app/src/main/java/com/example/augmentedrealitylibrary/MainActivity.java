@@ -19,11 +19,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.Arrays;
 
-
+/**
+ * The MainActivity is used to display the list of samples and handles the runtime
+ * permissions for the sample activities.
+ */
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = MainActivity.class.getSimpleName();
     private final PermissionManager permissionManager = ArchitectView.getPermissionManager();
+
     protected ArchitectView architectView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity
                 final Intent intent = new Intent(MainActivity.this, ArActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+                finish(); // call this to finish the current activity
             }
 
             @Override

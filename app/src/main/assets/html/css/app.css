@@ -31,7 +31,7 @@ h1,h2,h3,h4{
 	width:auto;
 }
 
-#otherBooks,#findARlighthouse{
+#otherBooks,#findARshelf{
 	position: absolute;
 	padding:0;
 	margin:0;
@@ -94,7 +94,7 @@ h1,h2,h3,h4{
 	width:100%;
 }
 
-#findARlighthouse img{
+#findARshelf img{
 	float:left;
 	margin-right:10px;
 	height:14vh;
